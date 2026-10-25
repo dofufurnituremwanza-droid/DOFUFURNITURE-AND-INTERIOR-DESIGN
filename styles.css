@@ -141,3 +141,7 @@ footer .brand{color:#fff;justify-content:center}
 .lightbox{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:450;cursor:zoom-out}
 .lightbox.show{display:grid}
 .lightbox img{max-width:92vw;max-height:90vh;border-radius:10px;animation:pop .5s}
+
+.cart-btn,.cart,.overlay{display:none!important}
+.nav .cart-btn+.burger{margin-left:auto}
+

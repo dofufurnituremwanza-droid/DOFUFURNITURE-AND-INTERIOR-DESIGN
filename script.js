@@ -40,7 +40,7 @@ const $ = id => document.getElementById(id);
 function renderProducts(f="all"){
   $("products").innerHTML = products.filter(p=>f==="all"||p.cat===f).map(p=>`
     <div class="product"><img src="${p.img}" alt="${p.name}" loading="lazy">
-    <div><h3>${p.name}</h3><p class="price">${fmt(p.price)}</p>
+    <div><h3>${p.name}</h3>
     <button class="btn" onclick="openProduct(${p.id})">View Details</button></div></div>`).join("");
 }
 function save(){localStorage.setItem("dofuCart",JSON.stringify(cart));renderCart()}
@@ -182,7 +182,7 @@ function openProduct(id) {
   const p = products.find(x => x.id == id), d = details[id] || catDetails[p.cat];
   currentProduct = id;
   $("pmImg").src = p.img; $("pmImg").alt = p.name;
-  $("pmName").textContent = p.name; $("pmPrice").textContent = fmt(p.price);
+  $("pmName").textContent = p.name; 
   $("pmDesign").textContent = d.design || ""; $("pmMaterial").textContent = d.material || "";
   $("pmQuality").textContent = d.quality || ""; $("pmSize").textContent = d.size || "";
   $("productModal").classList.add("show");
@@ -216,3 +216,11 @@ document.querySelectorAll(".gallery img").forEach(im => im.addEventListener("cli
 }));
 $("lightbox").onclick = () => $("lightbox").classList.remove("show");
 document.addEventListener("keydown", e => { if (e.key === "Escape") $("lightbox").classList.remove("show"); });
+
+/* ===== Prices removed: orders go straight to WhatsApp ===== */
+$("pmAdd").onclick = () => {
+  const p = products.find(x => x.id == currentProduct);
+  const msg = `Hello DOFU Furniture, I am interested in this product: ${p.name}.\nPlease send me the price and more details.\nImage: ${p.img}`;
+  closeProduct();
+  orderSuccess(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
+};
