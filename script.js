@@ -24,7 +24,14 @@ const products = [
   {id:20,name:"Designer Dining Chair",cat:"dining",price:180000,img:"https://images.unsplash.com/photo-1503602642458-232111445657?w=600&q=70"},
   {id:21,name:"Stylish Chair",cat:"dining",price:200000,img:"https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=600&q=70"},
   {id:22,name:"Modern Office Workspace",cat:"office",price:1300000,img:"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=70"},
-  {id:23,name:"Executive Chair",cat:"office",price:420000,img:"https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=70"}
+  {id:23,name:"Executive Chair",cat:"office",price:420000,img:"https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=70"},
+  {id:24,name:"Modern Living Room Set",cat:"living",price:2400000,img:"https://i.postimg.cc/d1cw2DfN/1020135753115781980.jpg"},
+  {id:25,name:"Luxury Living Room Suite",cat:"living",price:2700000,img:"https://i.postimg.cc/25ZCLn0K/1072560467523540074.jpg"},
+  {id:26,name:"Classic Living Room Design",cat:"living",price:2300000,img:"https://i.postimg.cc/wBm9RDwb/1091630397201000584.jpg"},
+  {id:27,name:"Stylish Living Room Set",cat:"living",price:2500000,img:"https://i.postimg.cc/mrHT17mJ/908249449865699016.jpg"},
+  {id:28,name:"Elegant Blue & White Living Room",cat:"living",price:3000000,img:"https://i.postimg.cc/XvCnB9sP/Elegant-Blue-White-Luxury-Living-Room-Design-Inspiration.jpg"},
+  {id:29,name:"Compact Stylish Living Room",cat:"living",price:1800000,img:"https://i.postimg.cc/N0HQ2RdD/Inside-75-Living-Rooms-That-Are-Super-Tiny-%28Yet-Totally-Stylish-%29.jpg"},
+  {id:30,name:"Simple & Gorgeous Living Room",cat:"living",price:2000000,img:"https://i.postimg.cc/XJ64fXPH/Simple-but-Gorgeous-Style.jpg"}
 ];
 const fmt = n => "TSh " + n.toLocaleString("en-US");
 let cart = JSON.parse(localStorage.getItem("dofuCart") || "{}");
