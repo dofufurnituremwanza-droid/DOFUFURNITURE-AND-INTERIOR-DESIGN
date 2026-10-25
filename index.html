@@ -31,6 +31,7 @@
 </header>
 
 <section class="hero" id="home">
+  <canvas id="hero3d"></canvas>
   <div class="container hero-inner">
     <p class="eyebrow">Mwanza, Tanzania</p>
     <h1>Furniture that makes<br>a house your <em>home</em></h1>
@@ -131,6 +132,18 @@
 </aside>
 <div class="overlay" id="overlay"></div>
 
+<div class="modal" id="orderModal">
+  <div class="modal-box">
+    <svg class="check" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none"/><path fill="none" d="M14 27l8 8 16-17"/></svg>
+    <h2>Order Placed!</h2>
+    <p>Thank you for choosing DOFU Furniture. We're opening WhatsApp so you can confirm your order with us.</p>
+    <button class="btn" id="closeModal">Continue Shopping</button>
+  </div>
+</div>
+<canvas id="confetti"></canvas>
+
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="hero3d.js"></script>
 </body>
 </html>

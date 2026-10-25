@@ -59,3 +59,81 @@ $("contactForm").onsubmit=e=>{
 $("footSocials").innerHTML=document.querySelector("#contact .socials").innerHTML;
 $("yr").textContent=new Date().getFullYear();
 renderProducts();renderCart();
+
+/* ===== 3D tilt, reveal, order animations ===== */
+const tiltSel = ".product,.card,.features div";
+document.addEventListener("pointermove", e => {
+  const el = e.target.closest && e.target.closest(tiltSel);
+  document.querySelectorAll(tiltSel).forEach(x => { if (x !== el) x.style.transform = ""; });
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+  el.style.transform = `rotateY(${px * 14}deg) rotateX(${-py * 14}deg) translateZ(10px)`;
+});
+document.addEventListener("pointerleave", () => document.querySelectorAll(tiltSel).forEach(x => x.style.transform = ""));
+
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+}), { threshold: .12 });
+function watchReveals() {
+  document.querySelectorAll(".features div,.product,.card,.about>*,.contact>*,h2,.sub").forEach((el, i) => {
+    if (el.classList.contains("reveal")) return;
+    el.classList.add("reveal"); el.style.transitionDelay = (i % 4) * 90 + "ms"; io.observe(el);
+  });
+}
+watchReveals();
+const _rp = renderProducts;
+renderProducts = function (f) { _rp(f); watchReveals(); };
+
+// Fly-to-cart
+const _add = add;
+add = function (id) {
+  const btn = event && event.target, card = btn && btn.closest(".product");
+  if (card) {
+    const img = card.querySelector("img"), a = img.getBoundingClientRect(), b = $("cartBtn").getBoundingClientRect();
+    const f = document.createElement("img"); f.src = img.src; f.className = "fly";
+    f.style.left = a.left + a.width / 2 - 35 + "px"; f.style.top = a.top + a.height / 2 - 35 + "px";
+    document.body.appendChild(f);
+    requestAnimationFrame(() => {
+      f.style.transform = `translate(${b.left - a.left - a.width / 2 + 20}px,${b.top - a.top - a.height / 2 + 10}px) scale(.2) rotate(540deg)`;
+      f.style.opacity = ".4";
+    });
+    setTimeout(() => { f.remove(); $("cartBtn").classList.add("bump"); setTimeout(() => $("cartBtn").classList.remove("bump"), 500); }, 800);
+  }
+  cart[id] = (cart[id] || 0) + 1; save(); setTimeout(openCart, 700);
+};
+
+// Confetti
+function confetti() {
+  const c = $("confetti"), x = c.getContext("2d");
+  c.width = innerWidth; c.height = innerHeight;
+  const cols = ["#c8913b", "#6b4423", "#25d366", "#e1306c", "#1877f2", "#fff"];
+  const ps = Array.from({ length: 160 }, () => ({
+    x: innerWidth / 2, y: innerHeight / 2, vx: (Math.random() - .5) * 18, vy: Math.random() * -16 - 4,
+    s: Math.random() * 8 + 4, r: Math.random() * 6, vr: Math.random() * .3, c: cols[Math.random() * cols.length | 0]
+  }));
+  let n = 0;
+  (function tick() {
+    x.clearRect(0, 0, c.width, c.height);
+    ps.forEach(p => {
+      p.vy += .35; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore();
+    });
+    if (++n < 160) requestAnimationFrame(tick); else x.clearRect(0, 0, c.width, c.height);
+  })();
+}
+function orderSuccess(url) {
+  closeCart(); $("orderModal").classList.add("show"); confetti();
+  setTimeout(() => window.open(url, "_blank"), 2200);
+}
+$("closeModal").onclick = () => $("orderModal").classList.remove("show");
+$("orderModal").onclick = e => { if (e.target.id === "orderModal") $("orderModal").classList.remove("show"); };
+
+$("checkout").onclick = () => {
+  const items = Object.keys(cart); if (!items.length) return alert("Your cart is empty.");
+  let total = 0;
+  const lines = items.map(id => { const p = products.find(x => x.id == id); total += p.price * cart[id]; return `- ${p.name} x${cart[id]} (${fmt(p.price * cart[id])})`; });
+  const msg = `Hello DOFU Furniture, I would like to order:\n${lines.join("\n")}\nTotal: ${fmt(total)}`;
+  cart = {}; save();
+  orderSuccess(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
+};

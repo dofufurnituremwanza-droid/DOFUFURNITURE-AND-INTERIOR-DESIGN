@@ -87,3 +87,38 @@ footer .brand{color:#fff;justify-content:center}
  nav.show{display:flex}
  .about,.contact{grid-template-columns:1fr}
 }
+
+/* ===== 3D & animation ===== */
+.hero{position:relative;overflow:hidden}
+#hero3d{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-inner{position:relative;z-index:1;pointer-events:none}
+.hero-inner a{pointer-events:auto}
+.hero-inner>*{animation:rise .9s both}
+.hero-inner>*:nth-child(2){animation-delay:.15s}.hero-inner>*:nth-child(3){animation-delay:.3s}.hero-inner>*:nth-child(4){animation-delay:.45s}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.features,.grid,.services,.about,.contact{perspective:1000px}
+.reveal{opacity:0;transform:translateY(50px) rotateX(12deg);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+.product,.card,.features div{transform-style:preserve-3d;transition:transform .15s ease-out,box-shadow .3s;will-change:transform}
+.product:hover,.card:hover,.features div:hover{box-shadow:0 22px 40px #0003}
+.product:hover{transform:none}
+.product img{transition:transform .5s}.product:hover img{transform:scale(1.08)}
+.product{overflow:hidden}
+.btn{box-shadow:0 6px 0 #8e6320;transform:translateY(0)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #8e6320}
+.cart-btn.bump{animation:bump .5s}
+@keyframes bump{30%{transform:scale(1.35) rotate(-10deg)}60%{transform:scale(.9) rotate(6deg)}}
+.fly{position:fixed;z-index:300;width:70px;height:70px;border-radius:50%;object-fit:cover;pointer-events:none;border:3px solid var(--gold);box-shadow:0 8px 20px #0005;transition:transform .8s cubic-bezier(.6,-.3,.7,.9),opacity .8s}
+.modal{position:fixed;inset:0;background:#000a;display:none;place-items:center;z-index:400}
+.modal.show{display:grid}
+.modal-box{background:#fff;padding:40px;border-radius:20px;max-width:420px;text-align:center;animation:pop .7s cubic-bezier(.2,1.4,.4,1);transform-style:preserve-3d}
+.modal-box h2{margin:10px 0}.modal-box p{margin-bottom:22px}
+@keyframes pop{from{opacity:0;transform:perspective(800px) rotateX(-70deg) scale(.5)}to{opacity:1;transform:none}}
+.check{width:90px;height:90px}
+.check circle{stroke:#25d366;stroke-width:3;stroke-dasharray:151;stroke-dashoffset:151;animation:draw .7s .3s forwards}
+.check path{stroke:#25d366;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .5s .9s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:500}
+.wa{animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #25d36699}70%{box-shadow:0 0 0 14px #25d36600}100%{box-shadow:0 0 0 0 #25d36600}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
