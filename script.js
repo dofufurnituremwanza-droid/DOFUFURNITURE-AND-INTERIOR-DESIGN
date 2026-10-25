@@ -19,7 +19,7 @@ function renderProducts(f="all"){
   $("products").innerHTML = products.filter(p=>f==="all"||p.cat===f).map(p=>`
     <div class="product"><img src="${p.img}" alt="${p.name}" loading="lazy">
     <div><h3>${p.name}</h3><p class="price">${fmt(p.price)}</p>
-    <button class="btn" onclick="add(${p.id})">Add to Cart</button></div></div>`).join("");
+    <button class="btn" onclick="openProduct(${p.id})">View Details</button></div></div>`).join("");
 }
 function save(){localStorage.setItem("dofuCart",JSON.stringify(cart));renderCart()}
 function add(id){cart[id]=(cart[id]||0)+1;save();openCart()}
@@ -137,3 +137,47 @@ $("checkout").onclick = () => {
   cart = {}; save();
   orderSuccess(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
 };
+
+/* ===== Product details ===== */
+const details = {
+  1:{design:"Modern L-shape corner sofa with deep seats, high padded backrest and slim tapered legs. Seats 5-6 people.",material:"Solid hardwood frame, high-density foam cushions, premium upholstery fabric.",quality:"Stain-resistant, sag-free seating, reinforced joints. 2-year frame guarantee.",size:"280 x 180 x 85 cm"},
+  2:{design:"Compact accent armchair with curved wrap-around back and soft rounded arms.",material:"Hardwood frame, soft foam padding, velvet-touch fabric, solid wood legs.",quality:"Comfortable for long sitting, easy-clean fabric, firmly built.",size:"75 x 80 x 85 cm"},
+  3:{design:"Low rectangular coffee table with clean lines and a smooth natural finish.",material:"Solid hardwood top and legs finished with polish/varnish.",quality:"Scratch and water-resistant finish, sturdy and stable.",size:"110 x 60 x 45 cm"},
+  4:{design:"Elegant king size bed with a tall padded headboard and sturdy slatted base.",material:"Seasoned hardwood frame, cushioned leather/fabric headboard, strong support slats.",quality:"Silent, strong joints; supports heavy weight; long-lasting finish.",size:"180 x 200 cm (king)"},
+  5:{design:"Spacious sliding-door wardrobe with hanging rail, shelves and drawers.",material:"Hardwood/MDF carcass, laminated finish, smooth-glide sliding track, metal handles.",quality:"Moisture-resistant, smooth sliding, durable hinges and rails.",size:"200 x 60 x 220 cm"},
+  6:{design:"Contemporary 6-seater dining set: rectangular table with six cushioned chairs.",material:"Solid wood table, tempered glass or wood top, padded chair seats.",quality:"Heat and stain resistant, strong chair joints, easy to wipe clean.",size:"Table 160 x 90 x 75 cm"},
+  7:{design:"Executive desk with wide work surface, side drawers and cable management.",material:"Hardwood and laminated board, lockable metal drawer slides.",quality:"Professional finish, very sturdy, scratch-resistant top.",size:"160 x 80 x 75 cm"},
+  8:{design:"Ergonomic high-back office chair with lumbar support and adjustable height.",material:"Breathable mesh/leather, steel base with smooth castors, foam seat.",quality:"Supports all-day sitting, adjustable and durable mechanisms.",size:"65 x 65 x 110-120 cm"}
+};
+let currentProduct = null;
+function openProduct(id) {
+  const p = products.find(x => x.id == id), d = details[id] || {};
+  currentProduct = id;
+  $("pmImg").src = p.img; $("pmImg").alt = p.name;
+  $("pmName").textContent = p.name; $("pmPrice").textContent = fmt(p.price);
+  $("pmDesign").textContent = d.design || ""; $("pmMaterial").textContent = d.material || "";
+  $("pmQuality").textContent = d.quality || ""; $("pmSize").textContent = d.size || "";
+  $("productModal").classList.add("show");
+}
+function closeProduct() { $("productModal").classList.remove("show"); }
+$("closeProduct").onclick = closeProduct;
+$("productModal").onclick = e => { if (e.target.id === "productModal") closeProduct(); };
+$("pmAdd").onclick = e => {
+  const id = currentProduct;
+  const a = $("pmImg").getBoundingClientRect(), b = $("cartBtn").getBoundingClientRect();
+  const f = document.createElement("img"); f.src = $("pmImg").src; f.className = "fly";
+  f.style.left = a.left + a.width / 2 - 35 + "px"; f.style.top = a.top + a.height / 2 - 35 + "px";
+  document.body.appendChild(f);
+  closeProduct();
+  requestAnimationFrame(() => {
+    f.style.transform = `translate(${b.left - a.left - a.width / 2 + 20}px,${b.top - a.top - a.height / 2 + 10}px) scale(.2) rotate(540deg)`;
+    f.style.opacity = ".4";
+  });
+  setTimeout(() => { f.remove(); $("cartBtn").classList.add("bump"); setTimeout(() => $("cartBtn").classList.remove("bump"), 500); }, 800);
+  cart[id] = (cart[id] || 0) + 1; save(); setTimeout(openCart, 800);
+};
+document.addEventListener("click", e => {
+  const card = e.target.closest(".product");
+  if (card && !e.target.closest("button")) { const m = card.querySelector("button").getAttribute("onclick").match(/\d+/); openProduct(m[0]); }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeProduct(); });
