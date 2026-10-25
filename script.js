@@ -249,3 +249,36 @@ $("pmAdd").onclick = () => {
   closeProduct();
   orderSuccess(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
 };
+
+/* ===== Cart without prices: Add to Cart -> Cart -> Place Order -> WhatsApp ===== */
+renderCart = function () {
+  let count = 0;
+  $("cartItems").innerHTML = Object.keys(cart).map(id => {
+    const p = products.find(x => x.id == id), q = cart[id]; count += q;
+    return `<div class="ci"><img src="${p.img}" alt=""><div><strong>${p.name}</strong></div>
+      <button onclick="change(${id},-1)">−</button>${q}<button onclick="change(${id},1)">+</button></div>`;
+  }).join("") || "<p style='padding:20px 0'>Your cart is empty.</p>";
+  $("cartCount").textContent = count;
+};
+$("pmAdd").onclick = () => {
+  const id = currentProduct;
+  const a = $("pmImg").getBoundingClientRect(), b = $("cartBtn").getBoundingClientRect();
+  const f = document.createElement("img"); f.src = $("pmImg").src; f.className = "fly";
+  f.style.left = a.left + a.width / 2 - 35 + "px"; f.style.top = a.top + a.height / 2 - 35 + "px";
+  document.body.appendChild(f);
+  closeProduct();
+  requestAnimationFrame(() => {
+    f.style.transform = `translate(${b.left - a.left - a.width / 2 + 20}px,${b.top - a.top - a.height / 2 + 10}px) scale(.2) rotate(540deg)`;
+    f.style.opacity = ".4";
+  });
+  setTimeout(() => { f.remove(); $("cartBtn").classList.add("bump"); setTimeout(() => $("cartBtn").classList.remove("bump"), 500); }, 800);
+  cart[id] = (cart[id] || 0) + 1; save(); setTimeout(openCart, 800);
+};
+$("checkout").onclick = () => {
+  const items = Object.keys(cart); if (!items.length) return alert("Your cart is empty.");
+  const lines = items.map(id => { const p = products.find(x => x.id == id); return `- ${p.name} x${cart[id]}\n  ${p.img}`; });
+  const msg = `Hello DOFU Furniture, I would like to place an order for:\n${lines.join("\n")}\nPlease send me the prices and delivery details.`;
+  cart = {}; save();
+  orderSuccess(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
+};
+renderCart();

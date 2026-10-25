@@ -142,6 +142,48 @@ footer .brand{color:#fff;justify-content:center}
 .lightbox.show{display:grid}
 .lightbox img{max-width:92vw;max-height:90vh;border-radius:10px;animation:pop .5s}
 
-.cart-btn,.cart,.overlay{display:none!important}
+
 .nav .cart-btn+.burger{margin-left:auto}
 
+
+/* ===== Responsive (phones, tablets, desktops) ===== */
+html,body{overflow-x:hidden;max-width:100%}
+img{max-width:100%}
+@media(max-width:1024px){
+ nav{gap:18px;font-size:.9rem}
+ .about,.contact{gap:30px}
+}
+@media(max-width:800px){
+ .nav{gap:12px}
+ .section{padding:56px 0}
+ h2{font-size:1.8rem}
+ .hero{min-height:75vh;text-align:center}
+ .hero p{margin:auto}
+ .hero-btns{justify-content:center}
+ .about img{height:260px}
+ .features{margin-top:-30px}
+}
+@media(max-width:480px){
+ .brand img{height:52px}
+ .brand{font-size:1rem;gap:6px}
+ .brand small{font-size:.5rem;letter-spacing:.5px}
+ .cart-btn{padding:6px 11px}
+ .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+ .product img{height:140px}
+ .product div{padding:10px}
+ .product h3{font-size:.9rem}
+ .product .btn{font-size:.8rem;padding:8px 6px}
+ .btn{padding:11px 20px}
+ .gallery{grid-template-columns:repeat(2,1fr);gap:8px}
+ .gallery img{height:160px}
+ .services{grid-template-columns:1fr}
+ .features{grid-template-columns:repeat(2,1fr);gap:12px}
+ .features div{padding:14px}
+ .filters{gap:6px}
+ .filters button{padding:6px 12px;font-size:.8rem}
+ .pm-info{padding:20px}
+ .modal-box{padding:28px 20px;width:92%}
+ .socials a{width:42px;height:42px}
+}
+@media(min-width:1600px){.container{width:min(1400px,92%)}.grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}}
+@media(hover:none){.product,.card,.features div{transform:none!important}}
