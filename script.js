@@ -9,7 +9,22 @@ const products = [
   {id:5,name:"Sliding Wardrobe",cat:"bedroom",price:1200000,img:"https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=600&q=70"},
   {id:6,name:"6-Seater Dining Set",cat:"dining",price:1400000,img:"https://images.unsplash.com/photo-1617806118233-18e1de247200?w=600&q=70"},
   {id:7,name:"Executive Office Desk",cat:"office",price:900000,img:"https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=600&q=70"},
-  {id:8,name:"Ergonomic Office Chair",cat:"office",price:380000,img:"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600&q=70"}
+  {id:8,name:"Ergonomic Office Chair",cat:"office",price:380000,img:"https://images.unsplash.com/photo-1580480055273-228ff5388ef8?w=600&q=70"},
+  {id:9,name:"Contemporary Living Room Set",cat:"living",price:2200000,img:"https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=70"},
+  {id:10,name:"Luxury Lounge Sofa Set",cat:"living",price:2600000,img:"https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=70"},
+  {id:11,name:"Classic Living Room Suite",cat:"living",price:2100000,img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=70"},
+  {id:12,name:"Designer Sofa Collection",cat:"living",price:1950000,img:"https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=70"},
+  {id:13,name:"Luxury Bed Set",cat:"bedroom",price:1700000,img:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600&q=70"},
+  {id:14,name:"Modern Bedroom Suite",cat:"bedroom",price:2300000,img:"https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=70"},
+  {id:15,name:"Bed with Side Tables",cat:"bedroom",price:1600000,img:"https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&q=70"},
+  {id:16,name:"Premium Master Bedroom",cat:"bedroom",price:2800000,img:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=70"},
+  {id:17,name:"Elegant Bedroom Design",cat:"bedroom",price:1900000,img:"https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600&q=70"},
+  {id:18,name:"Elegant Dining Table",cat:"dining",price:1100000,img:"https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=600&q=70"},
+  {id:19,name:"Kitchen & Dining Set",cat:"dining",price:1350000,img:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=70"},
+  {id:20,name:"Designer Dining Chair",cat:"dining",price:180000,img:"https://images.unsplash.com/photo-1503602642458-232111445657?w=600&q=70"},
+  {id:21,name:"Stylish Chair",cat:"dining",price:200000,img:"https://images.unsplash.com/photo-1550226891-ef816aed4a98?w=600&q=70"},
+  {id:22,name:"Modern Office Workspace",cat:"office",price:1300000,img:"https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=70"},
+  {id:23,name:"Executive Chair",cat:"office",price:420000,img:"https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=600&q=70"}
 ];
 const fmt = n => "TSh " + n.toLocaleString("en-US");
 let cart = JSON.parse(localStorage.getItem("dofuCart") || "{}");
@@ -149,9 +164,15 @@ const details = {
   7:{design:"Executive desk with wide work surface, side drawers and cable management.",material:"Hardwood and laminated board, lockable metal drawer slides.",quality:"Professional finish, very sturdy, scratch-resistant top.",size:"160 x 80 x 75 cm"},
   8:{design:"Ergonomic high-back office chair with lumbar support and adjustable height.",material:"Breathable mesh/leather, steel base with smooth castors, foam seat.",quality:"Supports all-day sitting, adjustable and durable mechanisms.",size:"65 x 65 x 110-120 cm"}
 };
+const catDetails = {
+  living:{design:"Modern, comfortable design finished to match your living space.",material:"Hardwood frame, high-density foam and premium upholstery.",quality:"Durable, sag-resistant and easy to clean. Frame guarantee included.",size:"Custom sizes available"},
+  bedroom:{design:"Elegant, restful design with a refined finish.",material:"Seasoned hardwood, quality padding and strong support.",quality:"Strong silent joints and a long-lasting finish.",size:"Custom sizes available"},
+  dining:{design:"Stylish design for family meals and entertaining.",material:"Solid wood with durable, wipe-clean finish.",quality:"Sturdy, heat and stain resistant.",size:"Custom sizes available"},
+  office:{design:"Professional design for productive workspaces.",material:"Hardwood, laminated board and quality fittings.",quality:"Sturdy, scratch-resistant and built for daily use.",size:"Custom sizes available"}
+};
 let currentProduct = null;
 function openProduct(id) {
-  const p = products.find(x => x.id == id), d = details[id] || {};
+  const p = products.find(x => x.id == id), d = details[id] || catDetails[p.cat];
   currentProduct = id;
   $("pmImg").src = p.img; $("pmImg").alt = p.name;
   $("pmName").textContent = p.name; $("pmPrice").textContent = fmt(p.price);
