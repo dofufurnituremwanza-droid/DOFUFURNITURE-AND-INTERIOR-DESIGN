@@ -31,7 +31,31 @@ const products = [
   {id:27,name:"Stylish Living Room Set",cat:"living",price:2500000,img:"https://i.postimg.cc/mrHT17mJ/908249449865699016.jpg"},
   {id:28,name:"Elegant Blue & White Living Room",cat:"living",price:3000000,img:"https://i.postimg.cc/XvCnB9sP/Elegant-Blue-White-Luxury-Living-Room-Design-Inspiration.jpg"},
   {id:29,name:"Compact Stylish Living Room",cat:"living",price:1800000,img:"https://i.postimg.cc/N0HQ2RdD/Inside-75-Living-Rooms-That-Are-Super-Tiny-%28Yet-Totally-Stylish-%29.jpg"},
-  {id:30,name:"Simple & Gorgeous Living Room",cat:"living",price:2000000,img:"https://i.postimg.cc/XJ64fXPH/Simple-but-Gorgeous-Style.jpg"}
+  {id:30,name:"Simple & Gorgeous Living Room",cat:"living",price:2000000,img:"https://i.postimg.cc/XJ64fXPH/Simple-but-Gorgeous-Style.jpg"},
+  {id:31,name:"Oval Wooden Dining Set",cat:"dining",price:0,img:"https://i.postimg.cc/VsrsxQq4/1015139572284287353.jpg"},
+  {id:32,name:"Modern Dining Set with Cushioned Chairs",cat:"dining",price:0,img:"https://i.postimg.cc/NG9G3q64/1039064945302308158.jpg"},
+  {id:33,name:"Marble-Top Space-Saving Dining Set",cat:"dining",price:0,img:"https://i.postimg.cc/BZLZr9Tz/1041879695061927596.jpg"},
+  {id:34,name:"Padded Diamond-Pattern Bed",cat:"bedroom",price:0,img:"https://i.postimg.cc/tRKRySkL/1049690625649534131.jpg"},
+  {id:35,name:"Luxury Blue & Gold Bedroom",cat:"bedroom",price:0,img:"https://i.postimg.cc/J7f7m6K7/1098596902864097312.jpg"},
+  {id:36,name:"Executive Office Interior",cat:"office",price:0,img:"https://i.postimg.cc/QVGyPWQC/288723026133728982.jpg"},
+  {id:37,name:"Modern Upholstered Bed with Side Tables",cat:"bedroom",price:0,img:"https://i.postimg.cc/QN2Ns4SX/586734657757088135.jpg"},
+  {id:38,name:"L-Shape Executive Desk",cat:"office",price:0,img:"https://i.postimg.cc/qgV5YCs7/611363718198153545.jpg"},
+  {id:39,name:"Modern Office Setup",cat:"office",price:0,img:"https://i.postimg.cc/K4SHVgPv/757941812325366032.jpg"},
+  {id:40,name:"Wardrobe with Dressing Unit",cat:"bedroom",price:0,img:"https://i.postimg.cc/XNRN3HLR/800585271304598433.jpg"},
+  {id:41,name:"Classic Wooden Bed with LED Lighting",cat:"bedroom",price:0,img:"https://i.postimg.cc/QN2Ns4Sr/804455552241056371.jpg"},
+  {id:42,name:"Premium Wooden Office Design",cat:"office",price:0,img:"https://i.postimg.cc/6626kJrC/829858668882542607.jpg"},
+  {id:43,name:"Luxury Dining Set with Quilted Chairs",cat:"dining",price:0,img:"https://i.postimg.cc/mZzZvfY6/887209195371025155.jpg"},
+  {id:44,name:"Classic Wall Decor Collection",cat:"decor",price:0,img:"https://i.postimg.cc/6qGPYhvs/A-beautiful-space-starts-with-the-right-wall-decor-Make-yours-stand-out-with-classic-wall-decor.jpg"},
+  {id:45,name:"Boss Table",cat:"office",price:0,img:"https://i.postimg.cc/3r4rs5XZ/Boss-Table.jpg"},
+  {id:46,name:"Dining Set Design",cat:"dining",price:0,img:"https://i.postimg.cc/1RnRkh0x/Dining-set-design.jpg"},
+  {id:47,name:"Professional Office Design",cat:"office",price:0,img:"https://i.postimg.cc/Kckc6SPn/Make-Your-Office-Look-and-Work-More-Professionally.jpg"},
+  {id:48,name:"Cream & Gold Luxury Dining Set",cat:"dining",price:0,img:"https://i.postimg.cc/9XRX65dx/Modern-Luxury-Dining-Room-Inspiration-Cream-Gold-Aesthetics.jpg"},
+  {id:49,name:"Luxury Vanity & Wardrobe",cat:"bedroom",price:0,img:"https://i.postimg.cc/y6M6BQj5/Modern-Luxury-Vanity-Wardrobe-Aesthetic-Bedroom-Furniture-Inspo.jpg"},
+  {id:50,name:"White LED Dressing Table with Storage",cat:"bedroom",price:0,img:"https://i.postimg.cc/1RkRPCMP/Modern-White-LED-Full-Length-Dressing-Table-Vanity-with-Storage-Shelves-Drawers.jpg"},
+  {id:51,name:"Office Designs",cat:"office",price:0,img:"https://i.postimg.cc/VsrsxQqB/Office-Designs.jpg"},
+  {id:52,name:"Office Interior",cat:"office",price:0,img:"https://i.postimg.cc/grFT56V2/Office-interior.jpg"},
+  {id:53,name:"Shoe Rack",cat:"decor",price:0,img:"https://i.postimg.cc/NG9G3q8v/Shoe-rack.jpg"},
+  {id:54,name:"Shoe Rack Cabinet",cat:"decor",price:0,img:"https://i.postimg.cc/qBhBPVcr/shoerack.jpg"}
 ];
 const fmt = n => "TSh " + n.toLocaleString("en-US");
 let cart = JSON.parse(localStorage.getItem("dofuCart") || "{}");
@@ -175,6 +199,7 @@ const catDetails = {
   living:{design:"Modern, comfortable design finished to match your living space.",material:"Hardwood frame, high-density foam and premium upholstery.",quality:"Durable, sag-resistant and easy to clean. Frame guarantee included.",size:"Custom sizes available"},
   bedroom:{design:"Elegant, restful design with a refined finish.",material:"Seasoned hardwood, quality padding and strong support.",quality:"Strong silent joints and a long-lasting finish.",size:"Custom sizes available"},
   dining:{design:"Stylish design for family meals and entertaining.",material:"Solid wood with durable, wipe-clean finish.",quality:"Sturdy, heat and stain resistant.",size:"Custom sizes available"},
+  decor:{design:"Practical and stylish home accessory that keeps your space neat and beautiful.",material:"Quality wood and durable finishing materials.",quality:"Sturdy, neat finishing and long-lasting.",size:"Custom sizes available"},
   office:{design:"Professional design for productive workspaces.",material:"Hardwood, laminated board and quality fittings.",quality:"Sturdy, scratch-resistant and built for daily use.",size:"Custom sizes available"}
 };
 let currentProduct = null;
