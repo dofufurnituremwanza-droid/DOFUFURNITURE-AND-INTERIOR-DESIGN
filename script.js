@@ -202,3 +202,10 @@ document.addEventListener("click", e => {
   if (card && !e.target.closest("button")) { const m = card.querySelector("button").getAttribute("onclick").match(/\d+/); openProduct(m[0]); }
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeProduct(); });
+
+/* ===== Gallery lightbox ===== */
+document.querySelectorAll(".gallery img").forEach(im => im.addEventListener("click", () => {
+  $("lbImg").src = im.src; $("lightbox").classList.add("show");
+}));
+$("lightbox").onclick = () => $("lightbox").classList.remove("show");
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("lightbox").classList.remove("show"); });
