@@ -74,10 +74,10 @@ function renderCart(){
   let total=0,count=0;
   $("cartItems").innerHTML = Object.keys(cart).map(id=>{
     const p=products.find(x=>x.id==id),q=cart[id];total+=p.price*q;count+=q;
-    return `<div class="ci"><img src="${p.img}" alt=""><div><strong>${p.name}</strong><br>${fmt(p.price)}</div>
+    return `<div class="ci"><img src="${p.img}" alt=""><div><strong>${p.name}</strong></div>
       <button onclick="change(${id},-1)">−</button>${q}<button onclick="change(${id},1)">+</button></div>`;
   }).join("") || "<p style='padding:20px 0'>Your cart is empty.</p>";
-  $("cartTotal").textContent=fmt(total);$("cartCount").textContent=count;
+  if($("cartTotal"))$("cartTotal").textContent=fmt(total);$("cartCount").textContent=count;
 }
 function openCart(){$("cart").classList.add("open");$("overlay").classList.add("show")}
 function closeCart(){$("cart").classList.remove("open");$("overlay").classList.remove("show")}
