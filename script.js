@@ -1,5 +1,5 @@
 // NOTE: update WHATSAPP with your number in international format (no +), e.g. 255700000000
-const WHATSAPP = "255000000000";
+const WHATSAPP = "255769456792";
 
 const products = [
   {id:1,name:"Modern L-Shape Sofa",cat:"living",price:1800000,img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=70"},
